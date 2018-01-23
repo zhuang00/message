@@ -1,6 +1,6 @@
 
 <body>
-    <h1></h1>
+    <h1>测试分页使用</h1>
  
     <?php $query=$this->Message_model->show(); ?>
     <?php $colors = ['alert alert-danger','alert alert-success','alert alert-info','alert alert-warning']; ?>

@@ -34,7 +34,7 @@ class Test extends CI_Controller {
         $config['total_rows'] = $total;
         $config['per_page'] = $limit;
 
-        //自定义标签
+        //自定义标签样式
         $config['full_tag_open'] = '<ul class="pagination">';  
         $config['full_tag_close'] = '</ul>';  
         $config['first_tag_open'] = '<li>';  

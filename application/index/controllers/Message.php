@@ -65,10 +65,7 @@ class Message extends CI_Controller {
             'title'=>$this->input->post('title'),
             'content'=>$this->input->post('content'),
         );
-        // $data = $this->security->xss_clean($data);
-        // var_dump($data);die;
-        // htmlspecialchars($data);
-        // var_dump($data);die;
+
         $this->Message_model->update($data,$this->uri->segment(4));
         $this->output->delete_cache('message/index');
         redirect(site_url('/message/index'));

@@ -54,14 +54,13 @@ class Test extends CI_Controller {
         $offset = $page == false?0:($config['per_page'] * ($page - 1));
         
         $this->pagination->initialize($config);
-    //    var_dump($limit,$offset);die;
+
         $data = $this->Test_model->page($limit,$offset);
-        // echo '<pre>';
-        // print_r($data);die;
+    
         $this->load->view('header');
         $this->load->view('page',$data);
         $this->load->view('footer');
-        // var_dump($data);die;
+
         
        
     }

@@ -38,7 +38,7 @@
 
 
      //更新id为$id 的记录
-     public function update($data, $id, $table = 'message')
+     public function update($data,$id,$table = 'message')
      {
          $data['date']=date('Y-m-d', time());
          // var_dump($data);die;

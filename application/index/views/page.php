@@ -8,13 +8,14 @@
     <div class="container" style="padding-top:100px;">
     <?php echo $page_list;?>
     
-    <?php foreach ($list as $row) { ?>
+    <?php foreach ($list as $row) {
+    ?>
 
    
 <div class="<?php echo $colors[array_rand($colors)] ?>" role="alert">
- <strong><?php echo $row['Id'].'.'; ?> <span>名字</span>  <?php echo $row['name'];?>
+ <strong><?php echo $row['Id'].'.'; ?> <span>名字</span>  <?php echo $row['name']; ?>
   
-  <span>标题</span>   </strong><?php echo $row['title'];?></strong> 
+  <span>标题</span>   </strong><?php echo $row['title']; ?></strong> 
   
   <?php echo $row['content'] ?>
   
@@ -29,4 +30,5 @@
   </div>
 </div>
 
-<?php } ?>
+<?php
+} ?>

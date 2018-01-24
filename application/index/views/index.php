@@ -56,13 +56,14 @@
         </ul>
       </nav>
       
-      <?php foreach ($query->result() as $row) { ?>
+      <?php foreach ($query->result() as $row) {
+    ?>
 
    
 	      <div class="<?php echo $colors[array_rand($colors)] ?>" role="alert">
-           <strong><?php echo $row->Id.'.'; ?> <span>名字</span>  <?php echo $row->name;?>
+           <strong><?php echo $row->Id.'.'; ?> <span>名字</span>  <?php echo $row->name; ?>
             
-            <span>标题</span>   </strong><?php echo $row->title;?></strong> 
+            <span>标题</span>   </strong><?php echo $row->title; ?></strong> 
             
             <?php echo $row->content ?>
             
@@ -77,7 +78,8 @@
 	        </div>
 	      </div>
 
-          <?php } ?>
+          <?php
+} ?>
           <!-- <div class="alert alert-success" role="alert">faewfawfawefawef</div> -->
       <form class="form-inline" action="" method="post">
 		  <div class="form-group">

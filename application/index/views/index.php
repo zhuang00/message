@@ -13,6 +13,18 @@
           <a class="navbar-brand" href="#">CI留言板</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+        <?php if (isset($_SESSION['id'])){ ?>
+          <form class="navbar-form navbar-right" id="loginform" >
+          <div class="form-group">
+          </div>
+          <div class="form-group">
+          </div>
+            <button type="button" class="btn btn-success" id="email"><?php echo $_SESSION['email'] ?></button>
+            
+            <a href="<?php echo site_url('message/loginout') ?>"  class="btn btn-success">退出</a>
+
+            </form>
+            <?php }else{ ?>
 
           <form class="navbar-form navbar-right" id="loginform" method="post">
 
@@ -24,9 +36,8 @@
                   </div>
                   <button type="button" class="btn btn-success" id="login">登陆</button>
                   <a href="reg.php"  class="btn btn-success">注册</a>
-
-
           </form>
+            <?php } ?>
         </div><!--/.navbar-collapse -->
       </div>
     </nav>
@@ -71,10 +82,12 @@
            
            
             <div style="float:right">
+            <?php if (isset($_SESSION['id'])){ ?>
 	        	<h4>
 	        	<a href="<?php echo site_url('message/delete/id/').$row['Id']; ?>" class="label label-danger">删除</a>
 				<a href="<?php echo  site_url('message/edit/id/').$row['Id']; ?>" class="label label-info">修改</a>
-				</h2>
+				</h4>
+            <?php } ?>
 	        </div>
 	      </div>
 
@@ -124,7 +137,32 @@
                   });
                   return false;
               })
-              
+              //登陆
+              $('#login').click(function(){
+                  var data = $('#loginform').serializeArray()
+                  $.ajax({
+                      type: "post",
+                      url: "<?php echo site_url('message/login');?>",
+                      data: data,
+                      dataType: "json",
+                      success: function (res) {
+                          if(res.error==0){
+                            alert(res.info)
+                            location.reload()
+                          }else{
+                              alert(res.info)
+
+                          }
+                      },
+                      error: function(e) { 
+                        console.log(e);
+                        } 
+       
+                      
+                  });
+                  return false;
+              })
+
           })
     </script>
 

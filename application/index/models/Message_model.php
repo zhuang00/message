@@ -58,4 +58,13 @@
          $this->db->limit($page_size, intval(($offset-1)*$page_size)); // limit(每页显示数量，偏移量)
          return $this->db->get($table)->result_array(); // 根据分页获取数据库里的数据
      }
+
+
+     //登陆处理
+     public function checkuser($data,$table='blog_user')
+     {
+        $this->db->where('email', $data['email']);
+        return  $this->db->get($table)->row_array();
+       
+     }
  }

@@ -11,7 +11,7 @@ class Message extends CI_Controller
         parent::__construct();
 
         header('Content-Type:text/html; charset=utf-8');
-
+        $this->load->library('session');
         $this->load->helper(array('url'));
         $this->load->model('Message_model');
         $this->load->database();
@@ -19,6 +19,7 @@ class Message extends CI_Controller
     }
     public function index()
     {
+        // var_dump($_SESSION);die;
         // $this->output->cache(5);
         $this->total = $this->Message_model->get_total_rows();
 
@@ -137,5 +138,33 @@ class Message extends CI_Controller
             exit(json_encode(['error'=>'1','info'=>'请填写内容']));
         }
         return $data;
+    }
+    public function login()
+    {
+        $user['email'] = $this->input->post('email',true);
+        $user['password'] = md5($this->input->post('password',true));
+        // var_dump($email,$pass);
+        $res = $this->Message_model->checkuser($user);
+        
+        if($res){
+            if($res['password']==$user['password']){
+                $this->session->set_userdata('id', $res['id']);
+                $this->session->set_userdata('email', $res['email']);
+               
+                exit (json_encode(['error'=>0,'info'=>'登陆成功']));
+            }else{
+                exit (json_encode(['error'=>1,'info'=>'账号或密码错误']));
+            }
+       }else{
+        exit (json_encode(['error'=>1,'info'=>'账号或密码错误']));
+       }
+
+    }
+    public function loginout()
+    {
+        unset($_SESSION['id']);
+        unset($_SESSION['email']);
+        $url=  site_url('message/index');
+        header("Location:$url");
     }
 }

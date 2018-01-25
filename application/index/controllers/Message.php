@@ -22,21 +22,53 @@ class Message extends CI_Controller
         // $this->output->cache(5);
         $total = $this->Message_model->get_total_rows();
         $this->total  = $total[0]['num'];
-        // var_dump($this->total);die;
-        //使用分页类
-        $this->load->library('pagination');
+        $page_size = 1;
 
-        $config['base_url'] = site_url('/message/index').'/page/';
-        
-        $config['total_rows'] = $this->total;
-        $config['per_page'] = 100;
-        // var_dump($config);die;
-        $this->pagination->initialize($config);
-        // echo $this->pagination->create_links();die;
+
+        $data = $this->page($page_size);
+
         //引入模板
         $this->load->view('header');
-        $this->load->view('index');
+        $this->load->view('index', $data);
         $this->load->view('footer');
+    }
+    private function page($page_size)
+    {
+        // $config['per_page'] =$page_size;
+        $this->load->library('pagination');
+        $config['base_url'] = site_url('/message/index/page');
+        $config['total_rows'] = $this->total;
+        $config['per_page'] = $page_size;
+        $config['uri_segment'] = 4;
+        $config['use_page_numbers'] = true;
+
+        //自定义分页标签样式
+        $config['num_links'] =2;
+        $config['first_link'] ='&laquo;';
+        $config['last_link'] ='&raquo;';
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a>';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+
+        $this->pagination->initialize($config);
+
+        $offset =intval($this->uri->segment(4));
+        $data['res'] = $this->Message_model->page_data($page_size, $offset);
+
+        $data['links']  = $this->pagination->create_links();
+        
+        return $data;
     }
 
     public function delete()

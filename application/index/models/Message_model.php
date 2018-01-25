@@ -45,12 +45,19 @@
          $this->db->where('id', $id);
          $this->db->update($table, $data);
      }
+     //获取数据总条数
      public function get_total_rows($table = 'message')
      {
-         // print_r(query('select * form '.$table));die;
+         
          $total = $this->db->query('select count(Id) as num from '.$table)->result_array();
-         // echo $this->db->last_query();
-         // $error = $this->db->last_query();
+
          return $total;
+     }
+     //处理分页数据model
+     public function page_data($page_size, $offset, $table = 'message')
+     {
+         $this->db->limit($page_size, $offset); // limit(每页显示数量，偏移量)
+         return $this->db->get($table)->result_array(); // 根据分页获取数据库里的数据
+
      }
  }

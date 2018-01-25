@@ -68,13 +68,11 @@ class Message extends CI_Controller
         if ($offset<=0) {
             $data['res'] = $this->Message_model->page_data($page_size, 1);
         } else {
-            
-            if($offset>=ceil($this->total/$page_size)){
+            if ($offset>=ceil($this->total/$page_size)) {
                 $data['res'] = $this->Message_model->page_data($page_size, ceil($this->total/$page_size));
-            }else{
+            } else {
                 $data['res'] = $this->Message_model->page_data($page_size, $offset);
             }
-            
         }
         
 

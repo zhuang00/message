@@ -20,9 +20,9 @@ class Message extends CI_Controller
     public function index()
     {
         // $this->output->cache(5);
-        $total = $this->Message_model->get_total_rows();
-        $this->total  = $total[0]['num'];
-        $page_size = 1;
+        $this->total = $this->Message_model->get_total_rows();
+
+        $page_size = 2;
 
 
         $data = $this->page($page_size);
@@ -39,7 +39,7 @@ class Message extends CI_Controller
         $config['base_url'] = site_url('/message/index/page');
         $config['total_rows'] = $this->total;
         $config['per_page'] = $page_size;
-        $config['uri_segment'] = 4;
+        // $config['uri_segment'] = 4;
         $config['use_page_numbers'] = true;
 
         //自定义分页标签样式
@@ -64,7 +64,13 @@ class Message extends CI_Controller
         $this->pagination->initialize($config);
 
         $offset =intval($this->uri->segment(4));
-        $data['res'] = $this->Message_model->page_data($page_size, $offset);
+
+        if ($offset==0) {
+            $data['res'] = $this->Message_model->page_data($page_size, 1);
+        } else {
+            $data['res'] = $this->Message_model->page_data($page_size, $offset);
+        }
+        
 
         $data['links']  = $this->pagination->create_links();
         

@@ -104,7 +104,7 @@
                   var data = $('.form-inline').serializeArray()
                   $.ajax({
                       type: "post",
-                      url: "./add",
+                      url: "<?php echo site_url('message/add');?>",
                       data: data,
                       dataType: "json",
                       success: function (res) {

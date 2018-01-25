@@ -48,16 +48,14 @@
      //获取数据总条数
      public function get_total_rows($table = 'message')
      {
-         
-         $total = $this->db->query('select count(Id) as num from '.$table)->result_array();
-
-         return $total;
+         return $this->db->count_all_results($table);
      }
      //处理分页数据model
      public function page_data($page_size, $offset, $table = 'message')
      {
-         $this->db->limit($page_size, $offset); // limit(每页显示数量，偏移量)
+         //  var_dump($page_size, $offset);die;
+         $this->db->order_by('Id', 'DESC');
+         $this->db->limit($page_size, intval(($offset-1)*$page_size)); // limit(每页显示数量，偏移量)
          return $this->db->get($table)->result_array(); // 根据分页获取数据库里的数据
-
      }
  }
